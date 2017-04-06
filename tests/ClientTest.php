@@ -29,20 +29,38 @@ class ClientTest extends PHPUnit_Framework_TestCase
 
     function test_deleteAll()
     {
+      //Arrangeit
       $newClient = new Client ("max","blue");
       $newClient->save();
       Client::deleteAll();
       $result = Client::getAll();
+      // AssertEquals
       $this->assertEquals($result, []);
     }
     function test_getAll()
     {
+      //Arrangeit
       $newClient = new Client ('max', 8);
       $newClient->save();
       $newClient2 = new Client ('jack', 9);
       $newClient2->save();
       $result = Client::getAll();
+      // AssertEquals
       $this->assertEquals([$newClient, $newClient2], $result);
+    }
+    function test_delete()
+    {
+        $name = "Jak";
+        $stylist_id = 8;
+        $testClient = new Client($name, $stylist_id);
+        $testClient->save();
+        $name2 = "Max";
+        $stylist_id2 = 5;
+        $testClient2 = new Client($name2, $stylist_id2);
+        $testClient2->save();
+        $testClient->delete();
+        $result = Client::getAll();
+        $this->assertEquals([$testClient2], $result);
     }
   }
 
