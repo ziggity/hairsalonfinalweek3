@@ -1,15 +1,15 @@
 <?php
-  class Sample2
+  class Client
 {
     private $name;
-    private $color;
+    private $stylist_id;
     private $id;
 
 
-    function __construct($name, $color, $id=null)
+    function __construct($name, $stylist_id, $id=null)
       {
         $this->name =$name;
-        $this->color =$color;
+        $this->stylist_id =$stylist_id;
         $this->id = $id;
       }
       function getName()
@@ -20,13 +20,13 @@
       {
          $this->name = $new_name;
       }
-      function getColor()
+      function getStylist_id()
       {
-        return $this->color;
+        return $this->stylist_id;
       }
-      function setColor($new_color)
+      function setStylist_id($new_stylist_id)
       {
-         $this->color = $new_color;
+         $this->stylist_id = $new_stylist_id;
       }
       function getId()
       {
@@ -34,7 +34,7 @@
       }
       function save()
       {
-        $executed = $GLOBALS['DB']->exec("INSERT INTO class (name, color) VALUES ('{$this->getName()}', '{$this->getColor()}'); ");
+        $executed = $GLOBALS['DB']->exec("INSERT INTO class (name, stylist_id) VALUES ('{$this->getName()}', '{$this->getstylist_id()}'); ");
           if($executed){
             $this->id = $GLOBALS['DB']->lastInsertId();
             return true;
@@ -47,7 +47,7 @@
         $classes = array();
         $returned_classes = $GLOBALS['DB']->query('SELECT * FROM class;');
         foreach($returned_classes as $class){
-          $newClass = new Sample2($class['name'], $class["color"],  $class["id"]);
+          $newClass = new Client($class['name'], $class["stylist_id"],  $class["id"]);
           array_push($classes, $newClass);
         }
           return $classes;
