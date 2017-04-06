@@ -53,6 +53,14 @@
           return false;
         }
       }
+      static function find($search_id)
+        {
+            $stylists = Stylist::getAll();
+            foreach ($stylists as $stylist) {
+                if ($stylist->getId() == $search_id) {
+                    return $stylist;
+                }
+            }
     }
-
+}
  ?>

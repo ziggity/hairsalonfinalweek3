@@ -49,6 +49,19 @@ class StylistTest extends PHPUnit_Framework_TestCase
     //AssertEquals
     $this->assertEquals($result, [$newStlyist, $newStlyist2] );
   }
+  function test_find()
+  {
+      //Arrangeit
+      $input_name = "Jax";
+      $test_Stylist = new Stylist($input_name);
+      $test_Stylist->save();
+      $input_name2 = "Nik";
+      $test_Stylist2 = new Stylist($input_name2);
+      $test_Stylist2->save();
+      $find_id = $GLOBALS['DB']->lastInsertId();
+      $result = Stylist::find($find_id);
+      $this->assertEquals($test_Stylist2, $result);
+  }
 }
 
 
