@@ -4,7 +4,7 @@
 * @backupStaticAttributes disabled
 */
 
-$DB = new PDO('mysql:host=localhost:8889;dbname=test_test', "root", "root");
+$DB = new PDO('mysql:host=localhost:8889;dbname=test_hairsalon', "root", "root");
 require_once "src/Stylist.php";
 require_once "src/Client.php";
 class ClientTest extends PHPUnit_Framework_TestCase
@@ -15,30 +15,34 @@ class ClientTest extends PHPUnit_Framework_TestCase
     Client::deleteAll();
 
   }
-    function test_Save()
-    {
-      $newClass = new Client ("max", "blue");
-      $newClass->save();
-      $result = Client::getAll();
-      $this->assertEquals($result, [$newClass]);
-    }
+  function test_save()
+  {
+      //Arrangeit
+      $name = "Eliot";
+      $stylist_id = 8;
+      $client = new Client($name, $stylist_id);
+      //Actonit
+      $executed =$client->save();
+      // AssertEquals
+      $this->assertTrue($executed, "Client not saved to database");
+  }
 
     function test_deleteAll()
     {
-      $newClass = new Client ("max","blue");
-      $newClass->save();
+      $newClient = new Client ("max","blue");
+      $newClient->save();
       Client::deleteAll();
       $result = Client::getAll();
       $this->assertEquals($result, []);
     }
     function test_getAll()
     {
-      $newClass = new Client ('max', 'blue');
-      $newClass2 = new Client ('jack', "black");
-      $newClass->save();
-      $newClass2->save();
+      $newClient = new Client ('max', 8);
+      $newClient->save();
+      $newClient2 = new Client ('jack', 9);
+      $newClient2->save();
       $result = Client::getAll();
-      $this->assertEquals($result, [$newClass, $newClass2] );
+      $this->assertEquals([$newClient, $newClient2], $result);
     }
   }
 

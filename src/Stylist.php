@@ -23,7 +23,7 @@
       }
       function save()
       {
-        $executed = $GLOBALS['DB']->exec("INSERT INTO hair_salon (name) VALUES ('{$this->getName()}'); ");
+        $executed = $GLOBALS['DB']->exec("INSERT INTO stylists (name) VALUES ('{$this->getName()}'); ");
           if($executed){
             $this->id = $GLOBALS['DB']->lastInsertId();
             return true;
@@ -37,7 +37,7 @@
         $returned_stylists = $GLOBALS['DB']->query('SELECT * FROM stylists;');
         foreach($returned_stylists as $stylist)
         {
-          $newStylist = new Stylist($stylist['name'], $stylist["color"],  $stylist["id"]);
+          $newStylist = new Stylist($stylist['name'],  $stylist["id"]);
           array_push($stylists, $newStylist);
         }
 
@@ -45,7 +45,7 @@
       }
       static function deleteAll()
       {
-        $deleteAll = $GLOBALS['DB']->exec("DELETE FROM stylist;");
+        $deleteAll = $GLOBALS['DB']->exec("DELETE FROM stylists;");
         if ($deleteAll)
         {
           return true;

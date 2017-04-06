@@ -34,7 +34,7 @@
       }
       function save()
       {
-        $executed = $GLOBALS['DB']->exec("INSERT INTO class (name, stylist_id) VALUES ('{$this->getName()}', '{$this->getstylist_id()}'); ");
+        $executed = $GLOBALS['DB']->exec("INSERT INTO clients (name, stylist_id) VALUES ('{$this->getName()}', '{$this->getStylist_id()}'); ");
           if($executed){
             $this->id = $GLOBALS['DB']->lastInsertId();
             return true;
@@ -45,7 +45,7 @@
     static function getAll()
       {
         $classes = array();
-        $returned_classes = $GLOBALS['DB']->query('SELECT * FROM class;');
+        $returned_classes = $GLOBALS['DB']->query('SELECT * FROM clients;');
         foreach($returned_classes as $class){
           $newClass = new Client($class['name'], $class["stylist_id"],  $class["id"]);
           array_push($classes, $newClass);
@@ -54,7 +54,7 @@
       }
       static function deleteAll()
       {
-        $deleteAll = $GLOBALS['DB']->exec("DELETE FROM class;");
+        $deleteAll = $GLOBALS['DB']->exec("DELETE FROM clients;");
         if ($deleteAll)
         {
           return true;
