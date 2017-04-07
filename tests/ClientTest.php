@@ -4,7 +4,7 @@
 * @backupStaticAttributes disabled
 */
 
-$DB = new PDO('mysql:host=localhost:8889;dbname=test_hairsalon', "root", "root");
+$DB = new PDO('mysql:host=localhost:8889;dbname=hairsalon_test', "root", "root");
 require_once "src/Stylist.php";
 require_once "src/Client.php";
 class ClientTest extends PHPUnit_Framework_TestCase
@@ -100,6 +100,7 @@ class ClientTest extends PHPUnit_Framework_TestCase
         $result = Client::getAll();
         $this->assertEquals([$test_Client], $result);
     }
+
 }
 
 

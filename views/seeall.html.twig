@@ -1,0 +1,26 @@
+{% include 'header.html.twig' %}
+  <div id="bg"class="jumbotron">
+  <h2>Zohan's Hair Salon!</h2>
+  <h3>Create a new Stylist:</h3>
+    <form action="/stylists" method="post">
+      <div class='form-group'>
+        <label for="name">Stylist name:</label>
+        <input id="name" name="name" type="text">
+      </div>
+      <div class='form-group'>
+        <button type="submit">Add a Stylist!</button>
+      </div>
+    </form>
+    {% if stylists is not empty %}
+    <h2>Here are the stylists on your crew:</h2>
+    <h2> {% for stylist in stylists %} </h2>
+    <h2><li> {{ stylist.name }} </li></h2>
+    {% endfor %}
+    {% endif %}
+    </div>
+  <div class="col-sm-6 form">
+    <form action='/delete_stylists' method='post'>
+      <button class='btn btn-danger' type='submit'>Delete Stylists</button>
+    </form>
+  <a href='/'>Go back home</a>
+{% include 'footer.html.twig' %}

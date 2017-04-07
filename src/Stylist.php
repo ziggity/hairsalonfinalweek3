@@ -53,6 +53,14 @@
           return false;
         }
       }
+      function delete()
+      {
+          $GLOBALS['DB']->exec("DELETE FROM stylists WHERE id = {$this->id};");
+          $client1 = Client::findByStylistId($this->id);
+          foreach ($client1 as $client) {
+              $client->delete();
+          }
+      }
       static function find($search_id)
         {
             $stylists = Stylist::getAll();
@@ -61,6 +69,15 @@
                     return $stylist;
                 }
             }
-    }
+        }
+        function getClientName()
+        {
+            $stylists = Stylist::getAll();
+            foreach ($stylists as $stylist) {
+                if ($stylist->getId() == $this->stylist_id) {
+                    return $stylist->getName();
+                }
+            }
+          }
 }
  ?>

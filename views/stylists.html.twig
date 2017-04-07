@@ -1,0 +1,19 @@
+{% include 'header.html.twig' %}
+    <div class="well">
+    <h1 class="well">Welcome to Zach's Hair Salon!</h1>
+    <h3>Current Stylist:
+    {% for stylist in stylists %}
+    <li><a href='/client/{{stylist.getId}}'>{{ stylist.getName }}</h3>
+      <form class="" action="/client" method="post">
+        <input type="hidden" name="stylist_id" value="{{ stylist.getId }}">
+        <input type="text" name="name">
+        <button type="submit">Click here to add a client to {{ stylist.getName }}!</button>
+      </form>
+      <p> List of total clients:</p>
+      {% if clients is not empty %}
+        {% for client in clients %}
+           {{ client.name }}
+        {% endfor %}
+      {% endif %}
+      <a href="/">Go back home</a>
+{% include 'footer.html.twig' %}

@@ -1,0 +1,21 @@
+{% include 'header.html.twig' %}
+  <div id="bg"class="jumbotron">
+  <h2>Zohan's Hair Salon!</h2>
+  <h3>Edit the clients as you see fit:</h3>
+  <div class='container'>
+          <h3>Update stylist:</h3>
+          <form class='form' action='/stylist_edit/{{ stylist.getId }}' method='post'>
+              <input type='hidden' name='_method' value='patch'>
+              <label>Stylist Name: {{ stylist.getName }}</label>
+              <label for='new_stylist_name'>New Stylist Name:</label>
+              <input class='form-control' type='text' id='new_stylist_name' name='new_stylist_name' value={{ stylist.getName }}>
+              <button class='form-control btn btn-info' type='submit'>Update Stylist</button>
+              <a href='/'>Return to home</a>
+          </form>
+          <form class='form form-inline' action='/stylist_edit/{{ stylist.getId }}' method='post'>
+              <input type='hidden' name='_method' value='delete'>
+              <button class='btn btn-danger' type='submit'>Delete Stylist</button>
+          </form>
+    </div>
+  </div>
+{% include 'footer.html.twig' %}
