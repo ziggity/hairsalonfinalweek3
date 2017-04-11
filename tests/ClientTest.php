@@ -12,15 +12,17 @@
     $DB = new PDO($server, $username, $password);
 
   require_once 'src/Client.php';
-	require_once 'src/Stylist.php';
+
 
 	class ClientTest extends PHPUnit_Framework_TestCase
 	{
-		protected function teardown(){
+		protected function teardown()
+		{
 			Client::deleteAll();
-      Stylist::deleteAll();
+
 		}
-		function test_getName(){
+		function test_getName()
+		{
 			$client = 'Rus';
 			$stylist_id = 1;
 			$new_client = new Client($client, $stylist_id);

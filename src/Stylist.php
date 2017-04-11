@@ -42,7 +42,8 @@
 		function deleteStylist(){
 			$GLOBALS['DB']->exec("DELETE FROM stylists WHERE id = {$this->getId()};");
 		}
-		static function find($search_id){
+		static function find($search_id)
+		{
 			$found_stylist = null;
 			$stylists = Stylist::getAll();
 
@@ -55,7 +56,8 @@
 			return $found_stylist;
 		}
 
-		static function getAll(){
+		static function getAll()
+		{
 			$returned_stylists = $GLOBALS['DB']->query("SELECT * FROM stylists");
 			$stylists = array();
 			foreach($returned_stylists as $stylist){
@@ -66,7 +68,8 @@
 			}
 			return $stylists;
 		}
-		static function deleteAll(){
+		static function deleteAll()
+		{
 			$GLOBALS['DB']->exec("DELETE FROM stylists");
 		}
 	}
