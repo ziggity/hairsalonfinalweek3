@@ -59,7 +59,6 @@ output: Joe Smith is id of 503._
 ## PHPUnit testing commands for your easy reference
 * On a mac you can just enter export PATH=$PATH:./vendor/bin in the terminal so after that all you need to do is type phpunit tests in the terminal to start a test.
 
-
 ## Known Bugs
 
 _No known bugs, yet_

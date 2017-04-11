@@ -1,87 +1,95 @@
 <?php
-/**
-* @backupGlobals disabled
-* @backupStaticAttributes disabled
-*/
 
-$DB = new PDO('mysql:host=localhost:8889;dbname=hairsalon_test', "root", "root");
-require_once "src/Stylist.php";
-require_once "src/Client.php";
-class StylistTest extends PHPUnit_Framework_TestCase
-{
-  protected function tearDown()
-  {
-    Stylist::deleteAll();
+	require_once 'src/Stylist.php';
 
-  }
-  function test_save()
-  {
-    //Arrangeit
-    $input_name = "Zak";
-    $stylist = new Stylist($input_name);
-    //Actonit
-    $stylist->save();
-    $result = Stylist::getAll();
-    //AssertEquals
-    $this->assertEquals([$stylist], $result);
-  }
+	/**
+  	* @backupGlobals disabled
+  	* @backupStaticAttributes disabled
+  	*/
+	$server = 'mysql:host=localhost;dbname=hair_salon_test';
+	$user = 'root';
+	$password = 'root';
+	$DB = new PDO ($server, $user, $password);
 
-  function test_deleteAll()
-  {
-    //Arrangeit
-    $newStlyist = new Stylist ("max");
-     //Actonit
-    $newStlyist->save();
-    Stylist::deleteAll();
-    $result = Stylist::getAll();
-    //AssertEquals
-    $this->assertEquals($result, []);
-  }
-  function test_getAll()
-  {
-    //Arrangeit
-    $newStlyist = new Stylist ('Joe', 'blue');
-    $newStlyist2 = new Stylist ('jack', "black");
-     //Actonit
-    $newStlyist->save();
-    $newStlyist2->save();
-    $result = Stylist::getAll();
-    //AssertEquals
-    $this->assertEquals($result, [$newStlyist, $newStlyist2] );
-  }
-  function test_find()
-  {
-    //Arrangeit
-    $input_name = "Jax";
-    $test_Stylist = new Stylist($input_name);
-    $test_Stylist->save();
-    $input_name2 = "Nik";
-    $test_Stylist2 = new Stylist($input_name2);
-    $test_Stylist2->save();
-    $find_id = $GLOBALS['DB']->lastInsertId();
-    $result = Stylist::find($find_id);
-    $this->assertEquals($test_Stylist2, $result);
-  }
-  function test_delete()
-  {
-      //Arrangeit
-      $inputname = "Sean";
-      $testStylist = new Stylist($inputname);
-      $testStylist->save();
-      $inputname2 = "Zak";
-      $testStylist2 = new Stylist($inputname2);
-      $testStylist2->save();
-      $testStylist->delete();
-      $result = Stylist::getAll();
-      $this->assertEquals([$testStylist2], $result);
-  }
+	class StylistTest extends PHPUnit_Framework_TestCase
+	{
+		protected function teardown(){
+			Stylist::deleteAll();
+		}
+		function test_getName(){
+			$name = 'Ross';
+			$new_stylist= new Stylist($name);
+			$current_stylist = $new_stylist->getName();
+			$this->assertEquals('Ross', $current_stylist);
+		}
+		function test_getId(){
+			$name = 'Ross';
+			$id = 1;
+			$new_stylist= new Stylist($name, $id);
+			$result = $new_stylist->getId();
+			$this->assertEquals(1, $result);
+		}
+		function test_save(){
+			$name = 'Jax';
+			$new_stylist= new Stylist($name);
+			$new_stylist->save();
+			$result = Stylist::getAll();
+			$this->assertEquals($new_stylist, $result[0]);
+		}
+		function test_updateName(){
+			$name = 'Jax';
+			$new_stylist= new Stylist($name);
+			$new_stylist->save();
+			$new_name = 'Nick';
+			$result = $new_stylist->updateName($new_name);
+			$this->assertEquals('Nick', $new_stylist->getName());
+		}
+		function test_getAll(){
+			$name = 'Steve';
+			$new_stylist= new Stylist($name);
+			$new_stylist->save();
+			$result = Stylist::getAll();
+			$this->assertEquals([$new_stylist], $result);
+		}
+		function test_getClients(){
+			$name = 'Steve';
+			$id = null;
+			$new_stylist= new Stylist($name, $id);
+			$new_stylist->save();
+			$stylist_id = $new_stylist->getId();
+			$client = 'Nick';
+			$new_client = new Client ($client, $stylist_id, $id);
+			$new_client->save();
+			$result = $new_stylist->getClients();
+			$this->assertEquals([$new_client], $result);
+		}
+		function test_deleteAll(){
+			$name = 'Nick';
+			$new_stylist= new Stylist($name);
+			$new_stylist->save();
+			Stylist::deleteAll();
+			$result = Stylist::getAll();
+			$this->assertEquals([], $result);
+		}
 
-
-}
-
-
-
-
-
-
+		function test_deleteStylist(){
+			$name1 = 'Nick';
+			$stylist1= new Stylist($name1);
+			$stylist1->save();
+			$name2 = 'Jill';
+			$stylist2= new Stylist($name2);
+			$stylist2->save();
+			$stylist1->deleteStylist();
+			$result = Stylist::getAll();
+			$this->assertEquals([$stylist2], $result);
+		}
+		function test_searchId(){
+			$name1 = 'Nick';
+			$stylist1= new Stylist($name1);
+			$stylist1->save();
+			$id = $stylist1->getId();
+			$result = $stylist1::find($id);
+			$this->assertEquals($stylist1, $result);
+		}
+	}
 ?>
