@@ -15,7 +15,7 @@ _A simple web form for an owner of a hair salon to add stylists and clients as t
 * _Unzip the database files, and enjoy!_
 
 ## Github link
-* https://github.com/ziggity/hairsalonWeek3.git
+* https://github.com/ziggity/hairsalonfinalweek3
 
 ## Specs
 * _Spec 1: The owner(user) can save stylists to database.
