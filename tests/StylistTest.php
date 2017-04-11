@@ -1,15 +1,15 @@
 <?php
 
 	require_once 'src/Stylist.php';
-
+	 require_once "src/Client.php";
 	/**
   	* @backupGlobals disabled
   	* @backupStaticAttributes disabled
   	*/
-	$server = 'mysql:host=localhost;dbname=hair_salon_test';
+	$server = 'mysql:host=localhost:8889;dbname=hair_salon_test';
 	$user = 'root';
 	$password = 'root';
-	$DB = new PDO ($server, $user, $password);
+	$DB = new PDO($server, $user, $password);
 
 	class StylistTest extends PHPUnit_Framework_TestCase
 	{
@@ -56,19 +56,19 @@
 			$result = Stylist::getAll();
 			$this->assertEquals([$new_stylist], $result);
 		}
-		function test_getClients()
-		{
-			$name = 'Steve';
-			$id = null;
-			$new_stylist= new Stylist($name, $id);
-			$new_stylist->save();
-			$stylist_id = $new_stylist->getId();
-			$client = 'Nick';
-			$new_client = new Client ($client, $stylist_id, $id);
-			$new_client->save();
-			$result = $new_stylist->getClients();
-			$this->assertEquals([$new_client], $result);
-		}
+		// function test_getClients()
+		// {
+		// 	$name = 'Steve';
+		// 	$id = null;
+		// 	$new_stylist= new Stylist($name, $id);
+		// 	$new_stylist->save();
+		// 	$stylist_id = $new_stylist->getId();
+		// 	$client = 'Nick';
+		// 	$new_client = new Client ($client, $stylist_id, $id);
+		// 	$new_client->save();
+		// 	$result = $new_stylist->getClients();
+		// 	$this->assertEquals([$new_client], $result);
+		// }
 		function test_deleteAll()
 		{
 			$name = 'Nick';
@@ -91,7 +91,7 @@
 			$result = Stylist::getAll();
 			$this->assertEquals([$stylist2], $result);
 		}
-		function test_searchId()
+		function test_find()
 		{
 			$name1 = 'Nick';
 			$stylist1= new Stylist($name1);

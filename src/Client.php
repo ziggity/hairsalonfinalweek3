@@ -17,35 +17,6 @@
 		function setName($new_name){
 			$this->name = (string) $new_name;
 		}
-		function updateClient($new_name){
-			$GLOBALS['DB']->exec("UPDATE clients SET name = {$new_name} WHERE id = {$this->getId()};");
-			$this->setName($new_name);
-		}
-		function getId(){
-			return $this->id;
-		}
-		function getStylistId(){
-			return $this->stylist_id;
-		}
-		function save(){
-			$GLOBALS['DB']->exec("INSERT INTO clients (name, stylist_id) VALUES ('{$this->getName()}','{$this->getStylistId()}');");
-			$this->id = $GLOBALS['DB']->lastInsertId();
-		}
-		function deleteClient(){
-			$GLOBALS['DB']->exec("DELETE FROM clients WHERE id = {$this->getId()};");
-		}
-		static function find($search_id){
-			$found_client = null;
-			$clients = Client::getAll();
-
-			foreach($clients as $client){
-				$client_id = $client->getId();
-				if($client_id == $search_id){
-					$found_client = $client;
-				}
-			}
-			return $found_client;
-		}
 		static function getAll(){
 			$returned_clients = $GLOBALS['DB']->query("SELECT * FROM clients");
 			$clients = array();
@@ -58,6 +29,42 @@
 			}
 			return $clients;
 		}
+		function updateClient($new_name){
+			$GLOBALS['DB']->exec("UPDATE clients SET name = {$new_name} WHERE id = {$this->getId()};");
+			$this->setName($new_name);
+		}
+		function getId(){
+			return $this->id;
+		}
+		function getStylistId(){
+			return $this->stylist_id;
+		}
+		function save(){
+			$GLOBALS['DB']->exec("INSERT INTO clients (name) VALUES ('{$this->getName()}','{$this->getStylistId()}');");
+			$this->id = $GLOBALS['DB']->lastInsertId();
+		}
+		function deleteClient()
+				{
+					$executed= $GLOBALS['DB']->exec("DELETE FROM client Where id={$this->getId()};");
+					if ($executed){
+						return true;
+					}else{
+						return false;
+					}
+				}
+		static function find($search_id){
+			$found_client = null;
+			$clients = Client::getAll();
+
+			foreach($clients as $client){
+				$client_id = $client->getId();
+				if($client_id == $search_id){
+					$found_client = $client;
+				}
+			}
+			return $found_client;
+		}
+
 		static function deleteAll(){
 			$GLOBALS['DB']->exec("DELETE FROM clients");
 		}
